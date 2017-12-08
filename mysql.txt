@@ -1,0 +1,16 @@
+mysql> show relaylog events in "cats5544-relay-bin.000048" from 3599547 limit 10;
++---------------------------+---------+----------------+-----------+-------------+--------------------------------------+
+| Log_name                  | Pos     | Event_type     | Server_id | End_log_pos | Info                                 |
++---------------------------+---------+----------------+-----------+-------------+--------------------------------------+
+| cats5544-relay-bin.000048 | 3599547 | Anonymous_Gtid |         1 |   752136752 | SET @@SESSION.GTID_NEXT= 'ANONYMOUS' |
+| cats5544-relay-bin.000048 | 3599612 | Query          |         1 |   752136824 | BEGIN                                |
+| cats5544-relay-bin.000048 | 3599684 | Table_map      |         1 |   752136913 | table_id: 175 (cats.test_set_stat)   |
+| cats5544-relay-bin.000048 | 3599773 | Delete_rows    |         1 |   752137203 | table_id: 175 flags: STMT_END_F      |
+| cats5544-relay-bin.000048 | 3600063 | Xid            |         1 |   752137234 | COMMIT /* xid=45079719 */            |
+| cats5544-relay-bin.000048 | 3600094 | Anonymous_Gtid |         1 |   752137299 | SET @@SESSION.GTID_NEXT= 'ANONYMOUS' |
+| cats5544-relay-bin.000048 | 3600159 | Query          |         1 |   752137371 | BEGIN                                |
+| cats5544-relay-bin.000048 | 3600231 | Table_map      |         1 |   752137460 | table_id: 175 (cats.test_set_stat)   |
+| cats5544-relay-bin.000048 | 3600320 | Write_rows     |         1 |   752137750 | table_id: 175 flags: STMT_END_F      |
+| cats5544-relay-bin.000048 | 3600610 | Xid            |         1 |   752137781 | COMMIT /* xid=45079723 */            |
++---------------------------+---------+----------------+-----------+-------------+--------------------------------------+
+10 rows in set (0.00 sec)
