@@ -1,4 +1,4 @@
-1， create a repo on git web client
+1， create a repo on git web client(you need to login github at first), then it will show you how to upload local project to the repo.
 2, create a directory on local windows
 3, clone the new created repo with command "git clone https://xxxxx"
 4, add files in the new local dir
