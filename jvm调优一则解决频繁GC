@@ -1,0 +1,56 @@
+ ll /opt/cats/jstatd.all.policy
+ 1016  cp /opt/cats/jstatd.all.policy /usr/cats/jdk1.8.0_144/bin
+ 1017  locate jstatd.all
+ 1019  locate jstatd.all
+ 1021  which jstatd
+ 1022  jstatd -J-Djava.security.policy=jstatd.all.policy -J-Djava.rmi.server.hos
+ 1024  ps aux| grep jstat
+ 1030  jstatd -J-Djava.security.policy=jstatd.all.policy -J-Djava.rmi.server.hos
+ 1032  jstat -gc 22435 1000
+
+
+
+
+
+
+
+1)、配置jstatd的远程RMI服务（当我们要看远程服务器上JAVA程序的GC情况的时候，需要执行此步骤），允许JVM工具查看JVM使用情况。
+
+将如下的代码存为文件 jstatd.all.policy，放到JAVA_HOME/bin中
+
+修改java.policy 文件，增加工具包的执行权限
+
+grant codebase "file:${java.home}/../lib/tools.jar" {
+permission java.security.AllPermission;
+
+};
+
+执行命令，启动jdstad 服务
+jstatd -J-Djava.security.policy=jstatd.all.policy -J-Djava.rmi.server.hostname=172.29.55.196 &
+
+
+2)、在windows平台上执行jdk\bin\jvisualvm.exe 打开JVM控制台。
+
+工具--插件--中找到Visual GC插件进行安装.
+
+打开\jvisualvm.exe，远程---添加远程主机---输入远程IP----添加JMX连接
+
+
+如果在控制台中看不到远程的jvm，需要加参数重新启动服务， jmxremote相关
+java -server -Xms4G -Xmx4G -Xmn2G -XX:SurvivorRatio=1 -XX:+UseConcMarkSweepGC -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1100 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -jar c1000k.jar&
+
+
+问题？：
+如果发现新生代gc特别频繁，导致老生代也gc，那么就要分析具体哪个线程频繁使用内存。
+方法
+用jmap 比对gc前后的对象情况，看看哪个对象前后差距较大，再分析代码，优化代码
+jmap -histo 2211 | more
+gc以后数据 ： jmap -histo:live 2211 | more
+
+借助于java自带的工具jmap -histo pid，可以快速多次获取虚拟机堆中当前各对象的实例数量以及占用内存大小。虽然获取内存dump文件也可以，但是耗时太长，另外机器可用内存太小，dump过程可能会有副作用。
+
+
+ref：
+https://blog.csdn.net/Javazhoumou/article/details/99298624
+https://blog.csdn.net/maso88/article/details/88640463
+https://blog.csdn.net/chunyusi1569/article/details/100821723
