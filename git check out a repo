@@ -1,7 +1,25 @@
-
-go to a base code dir
+mkdir dirname
+cd dirname
 git init
-git config --global core.longpaths true
-git remote add origin https://xxxx.com/scm/pace/g30.git
-git fetch origin master
-git checkout -b my-local-g30 origin/master
+git remote add origin https://github.com/dcbenwu/ds.git
+git fetch origin 
+git checkout -b my-local-branch origin/add_g31_device
+
+
+
+
+#获取所有远程分支
+git fetch origin
+#列出所有可以 checkout 的分支
+git branch -a
+#从远程分支拉取更改
+#请注意，你不能直接在远程分支上进行更改。因此，你需要该分支的副本。假设你想复制远程分支 fix-failing-tests，运行以下命令：
+
+git checkout -b fix-failing-tests origin/fix-failing-tests
+git checkout -b <BRANCH-NAME> <REMOTE-NAME>/<BRANCH-NAME>
+
+将执行：
+
+    创建了一个名为 fix-failing-tests 的新分支
+    checkout 那个分支
+    将更改从 origin/fix-failing-tests 拉到该分支
