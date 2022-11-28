@@ -1,0 +1,7 @@
+
+go to a base code dir
+git init
+git config --global core.longpaths true
+git remote add origin https://xxxx.com/scm/pace/g30.git
+git fetch origin master
+git checkout -b my-local-g30 origin/master
